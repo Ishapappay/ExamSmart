@@ -6,7 +6,7 @@ import AttendExamstr from './AttendExamstr';
 const PrevPapers = () => {
     const [exams, setExams] = useState([]);
     useEffect(() => {
-        axios.get('https://localhost:7208/api/ExamDownload/view')
+        axios.get('https://localhost:7208/api/questionpaper')
             .then(response => {
                 setExams(response.data);
             })

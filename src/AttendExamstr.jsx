@@ -14,9 +14,12 @@ const AttendExam = () => {
     useEffect(() => {
         const fetchQuestions = async () => {
             if (examid) {
-                try {                  
-                    const response = await axios.get(`https://localhost:7208/api/ExamDownload/readQst?paperId=${examid}`);
-                    setQuestions(response.data);
+                try {
+                    const response = await axios.get(`https://localhost:7208/api/questionpaper/${examid}/questions`);
+                    setQuestions(response.data.map(question => ({
+                        ...question,
+                        selectedOption: null
+                    })));
                 } catch (error) {
                     console.error('Error fetching questions:', error);
                 }
@@ -37,6 +40,8 @@ const AttendExam = () => {
 
     const startIndex = activeStep * questionsPerPage;
     const endIndex = Math.min(startIndex + questionsPerPage, questions.length);
+
+    debugger
     const currentQuestions = questions.slice(startIndex, endIndex);
 
     const calculateScore = () => {
@@ -62,76 +67,32 @@ const AttendExam = () => {
             <div>
                 {currentQuestions.length > 0 && currentQuestions.map((question, index) => (
                     <div key={index}>
-                        <h4>{question.qustionId }. {question.text}</h4>
-                        <div>
-                            <input
-                                type="radio" name={`question-${index}`}
-                                checked={questions[startIndex + index].selectedOption === 'A'}
-                                value="A" onChange={() => {
-                                    const updatedQuestions = [...questions];
-                                    updatedQuestions[startIndex + index].selectedOption = 'A';
-                                    setQuestions(updatedQuestions);
-                                }}
-                            />
-                            <label>{question.optionA}</label>
-                        </div>
-
-                
-                        
-
-                        <div>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="B"
-                                onChange={() => {
-                                    const updatedQuestions = [...questions];
-                                    updatedQuestions[startIndex + index].selectedOption = 'B';
-                                    setQuestions(updatedQuestions);
-                                }}
-                            />
-                            <label>{question.optionB}</label>
-                        </div>
-                        <div>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="C"
-                                onChange={() => {
-                                    const updatedQuestions = [...questions];
-                                    updatedQuestions[startIndex + index].selectedOption = 'C';
-                                    setQuestions(updatedQuestions);
-                                }}
-                            />
-                            <label>{question.optionC}</label>
-                        </div>
-                        <div>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="D"
-                                onChange={() => {
-                                    const updatedQuestions = [...questions];
-                                    updatedQuestions[startIndex + index].selectedOption = 'D';
-                                    setQuestions(updatedQuestions);
-                                }}
-                            />
-                            <label>{question.optionD}</label>
-                        </div>
-                        {/* <h4>{index+1}{question.text}</h4>
-                        <label>{question.optionA}</label><br />
-                        <label>{question.optionB}</label><br />
-                        <label>{question.optionC}</label><br />
-                        <label>{question.optionD}</label><br /> */}
+                        <h4>{question.id}. {question.questionText}</h4>
+                        {['A', 'B', 'C', 'D'].map(option => (
+                            <div key={option}>
+                                <input
+                                    type="radio"
+                                    name={`question-${index}`}
+                                    checked={questions[startIndex + index].selectedOption === option}
+                                    value={option}
+                                    onChange={() => {
+                                        const updatedQuestions = [...questions];
+                                        updatedQuestions[startIndex + index].selectedOption = option;
+                                        setQuestions(updatedQuestions);
+                                    }}
+                                />
+                                <label>{question[`option${option}`]}</label>
+                            </div>
+                        ))}
                     </div>
                 ))}
 
-                
+
                 <div>
-                    <Button  
+                    <Button
                         variant="contained"
                         color="primary"
-                        disabled={activeStep === 0} 
+                        disabled={activeStep === 0}
                         onClick={handleBack}>
                         Back
                     </Button>
@@ -153,7 +114,7 @@ const AttendExam = () => {
                         Submit
                     </Button>
                 </div>
-            </div>           
+            </div>
         </div>
     );
 };
