@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import AttendExam from './AttendExam';
-import AttendExamstr from './AttendExamstr';
+import axios from 'axios'; 
+import AttendExam from '../components/AttendExam';
+import instructions from './Instructions';     
 
 const PrevPapers = () => {
     const [exams, setExams] = useState([]);
@@ -16,19 +16,15 @@ const PrevPapers = () => {
     }, []);
     return (
         <div>
-            <h1>Previous Papers</h1>
-            
+            <h1>Previous Papers</h1>            
             <ul>
                 {exams.map((exam, index) => (
-
                     <li key={index}>
                         {exam.name}
                         <label>{exam.serialCode}</label>
                         <label>{exam.examName}</label>
-                        {/* <button onClick={() => window.location.href = `/AttendExam/${exam.paperId}`}>Attend</button> */}
-                    
-                       <button onClick={() => window.location.href = `/AttendExamstr/${exam.paperId}`}>Attendstr</button>
-
+                        <button onClick={() => window.location.href = `/Instructions/${exam.id}`}>Attend with gamil</button>
+                        {/* <button onClick={() => window.location.href = `/AttendExam/${exam.id}`}>Attend</button> */}
                     </li>
                 ))}
             </ul>

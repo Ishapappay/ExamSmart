@@ -1,9 +1,8 @@
-
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Stepper, Step, StepLabel, Button } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 const AttendExam = () => {
     const { examid } = useParams();
@@ -12,13 +11,13 @@ const AttendExam = () => {
     const questionsPerPage = 5;
 
     useEffect(() => {
-        const fetchQuestions = async () => {
-            if (examid) {
+        const fetchQuestions = async () => {            if (examid) {
                 try {
                     const response = await axios.get(`https://localhost:7208/api/questionpaper/${examid}/questions`);
                     setQuestions(response.data.map(question => ({
                         ...question,
-                        selectedOption: null
+                        selectedOption: null,
+                        correctAnswer: question.answer // Ensure correctAnswer is set
                     })));
                 } catch (error) {
                     console.error('Error fetching questions:', error);
@@ -87,7 +86,6 @@ const AttendExam = () => {
                     </div>
                 ))}
 
-
                 <div>
                     <Button
                         variant="contained"
@@ -108,8 +106,9 @@ const AttendExam = () => {
                         variant="contained"
                         color="secondary"
                         onClick={() => {
-                            const score = calculateScore();
+                            const score = calculateScore();                         
                             alert(`Your score is: ${score}`);
+                              window.location.href = `/result/${score}`;
                         }}>
                         Submit
                     </Button>
