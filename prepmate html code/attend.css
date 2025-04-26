@@ -1,0 +1,140 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+  overflow: hidden; /* Prevent scroll */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Page layout */
+.demo-page {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 40px); /* Leave space for ticker if needed */
+  overflow: hidden;
+}
+
+/* Left Section */
+.left-side {
+  background-color: #d3d3d3;
+  flex: 1;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.main-heading {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #4c1d95;
+}
+
+.sub-heading {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.dropdown {
+  padding: 0.9rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  margin-bottom: 1.5rem;
+  width: 80%;
+}
+.button-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.next-btn {
+  display: inline-block;
+  text-align: center;
+  padding: 0.6rem 1.5rem;
+  min-width: 80px;
+  background-color: white;
+  color: green;
+  border: 2px solid green;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.next-btn-attend{
+  width:50px;
+  display: inline-block;
+  text-align: center;
+  padding: 0.6rem 1.5rem;
+  min-width: 80px;
+  background-color: white;
+  color: green;
+  border: 2px solid green;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s;
+
+}
+.next-btn-attend:hover{
+  background-color: green;
+  color: white;
+}
+.next-btn:hover {
+  background-color: green;
+  color: white;
+}
+
+
+/* Right Section */
+.right-side {
+  flex: 1;
+  overflow: hidden;
+}
+
+.right-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* News Ticker */
+.news-ticker {
+  background: #f2f2f2;
+  overflow: hidden;
+  white-space: nowrap;
+  position: fixed;
+}
+
+.news-ticker p {
+  display: inline-block;
+  padding: 1rem;
+  font-weight: 500;
+  color: #014b13;
+  animation: scroll-left 15s linear infinite;
+}
+
+.pyq-page {
+  display: none;
+  flex-direction: row;
+  height: 100vh;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Optional: Hide scrollbars (for some browsers) */
+body::-webkit-scrollbar {
+  display: none;
+}
