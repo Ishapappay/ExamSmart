@@ -1,0 +1,9 @@
+<h2 class="main-heading">"Start Smarter: Pick Your Exam, Prep Like a Pro!"</h2>
+<h3 class="sub-heading">Select the Exam That Fits Your Dream!</h3>
+<select class="dropdown">
+    <option>Select Exam</option>
+    <option *ngFor="let examType of examTypes" [value]="examType.id">
+        {{ examType.name }}
+    </option>
+</select>
+<a routerLink="/participant-portal/select-question-paper" class="next-btn-attend">Next</a>
